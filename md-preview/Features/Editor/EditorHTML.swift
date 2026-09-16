@@ -651,6 +651,9 @@ nonisolated enum EditorHTML {
                     {
                         pageScrolling: \(usesPageScrolling),
                         onDirty: function () { post("dirty"); },
+                        onSearchChange: function (result) {
+                            post({ kind: "findResult", index: result.index, total: result.total });
+                        },
                         onPasteImage: function (from, to) {
                             post({ kind: "pasteImage", from: from, to: to });
                         },
@@ -668,6 +671,9 @@ nonisolated enum EditorHTML {
                     }
                 );
                 window.__mdEditor = {
+                    find: function (query, backwards, beginsWith) {
+                        return editor.find(query, backwards, beginsWith);
+                    },
                     getMarkdown: function () { return editor.getMarkdown(); },
                     isSyntaxReady: function () { return editor.isSyntaxReady(); },
                     replaceMarkdown: function (markdown) { return editor.replaceMarkdown(markdown); },
