@@ -20,7 +20,7 @@ Files can also be opened from the app with `⌘O` or by passing them to the app 
 ## Build
 
 ```sh
-xcodebuild -project TextViewer.xcodeproj -scheme TextViewer -configuration Debug build CODE_SIGNING_ALLOWED=NO
+xcodebuild -project TextViewer.xcodeproj -scheme TextViewer -configuration Debug -derivedDataPath build build CODE_SIGNING_ALLOWED=NO
 ```
 
 The built app is placed under `build/Build/Products/Debug/Text Viewer.app`.
