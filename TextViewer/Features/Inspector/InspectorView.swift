@@ -239,10 +239,14 @@ extension InspectorView {
 
 private struct TabPickerSizing: ViewModifier {
     func body(content: Content) -> some View {
+        #if compiler(>=6.2)
         if #available(macOS 26.0, *) {
             content.buttonSizing(.flexible)
         } else {
             content.fixedSize()
         }
+        #else
+        content.fixedSize()
+        #endif
     }
 }
