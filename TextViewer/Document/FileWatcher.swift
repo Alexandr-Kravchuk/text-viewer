@@ -96,9 +96,8 @@ final class FileWatcher {
     private func reopen() {
         source?.cancel()
         source = nil
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) { [weak self] in
-            self?.open()
-        }
+        let work = DispatchWorkItem { [weak self] in self?.open() }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05, execute: work)
     }
 
     private func currentPath() -> URL? {
