@@ -1,7 +1,0 @@
-// Centralized version configuration for all targets.
-// Bump these values to release a new version.
-
-#include? "Secrets.xcconfig"
-
-MARKETING_VERSION = 0.0.60
-CURRENT_PROJECT_VERSION = 64

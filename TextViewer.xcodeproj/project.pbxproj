@@ -1,0 +1,230 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		100000000000000000000001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000001 /* AppDelegate.swift */; };
+		100000000000000000000002 /* TextDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000002 /* TextDocument.swift */; };
+		100000000000000000000003 /* TextDocumentWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000003 /* TextDocumentWindowController.swift */; };
+		100000000000000000000004 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000004 /* TextViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		200000000000000000000001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		200000000000000000000002 /* TextDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDocument.swift; sourceTree = "<group>"; };
+		200000000000000000000003 /* TextDocumentWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDocumentWindowController.swift; sourceTree = "<group>"; };
+		200000000000000000000004 /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
+		200000000000000000000005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		200000000000000000000006 /* Text Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Text Viewer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		300000000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		400000000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				400000000000000000000002 /* TextViewer */,
+				400000000000000000000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		400000000000000000000002 /* TextViewer */ = {
+			isa = PBXGroup;
+			children = (
+				200000000000000000000001 /* AppDelegate.swift */,
+				200000000000000000000002 /* TextDocument.swift */,
+				200000000000000000000003 /* TextDocumentWindowController.swift */,
+				200000000000000000000004 /* TextViewController.swift */,
+				200000000000000000000005 /* Info.plist */,
+			);
+			path = TextViewer;
+			sourceTree = "<group>";
+		};
+		400000000000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				200000000000000000000006 /* Text Viewer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		500000000000000000000001 /* TextViewer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 600000000000000000000002 /* Build configuration list for PBXNativeTarget "TextViewer" */;
+			buildPhases = (
+				300000000000000000000002 /* Sources */,
+				300000000000000000000001 /* Frameworks */,
+				300000000000000000000003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TextViewer;
+			productName = TextViewer;
+			productReference = 200000000000000000000006 /* Text Viewer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		700000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 2700;
+				TargetAttributes = {
+					500000000000000000000001 = {
+						CreatedOnToolsVersion = 27.0;
+					};
+				};
+			};
+			buildConfigurationList = 600000000000000000000001 /* Build configuration list for PBXProject "TextViewer" */;
+			compatibilityVersion = "Xcode 16.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 400000000000000000000001;
+			productRefGroup = 400000000000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				500000000000000000000001 /* TextViewer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		300000000000000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		300000000000000000000002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				100000000000000000000001 /* AppDelegate.swift in Sources */,
+				100000000000000000000002 /* TextDocument.swift in Sources */,
+				100000000000000000000003 /* TextDocumentWindowController.swift in Sources */,
+				100000000000000000000004 /* TextViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		600000000000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GENERATE_INFOPLIST_FILE = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = TextViewer/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.textviewer.app;
+				PRODUCT_NAME = "Text Viewer";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		600000000000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf-with-dsym;
+				GENERATE_INFOPLIST_FILE = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = TextViewer/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.textviewer.app;
+				PRODUCT_NAME = "Text Viewer";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		600000000000000000000005 /* Project Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		600000000000000000000006 /* Project Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		600000000000000000000001 /* Build configuration list for PBXProject "TextViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				600000000000000000000005 /* Project Debug */,
+				600000000000000000000006 /* Project Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		600000000000000000000002 /* Build configuration list for PBXNativeTarget "TextViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				600000000000000000000003 /* Debug */,
+				600000000000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 700000000000000000000001 /* Project object */;
+}

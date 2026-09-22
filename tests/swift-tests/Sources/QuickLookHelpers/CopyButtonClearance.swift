@@ -1,1 +1,0 @@
-../../../../quick-look/CopyButtonClearance.swift
