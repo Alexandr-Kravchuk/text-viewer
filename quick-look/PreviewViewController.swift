@@ -499,6 +499,7 @@ final class PreviewViewController: NSViewController, QLPreviewingController, WKN
         button.showsBorderOnlyWhileMouseInside = false
         button.setContentHuggingPriority(.required, for: .horizontal)
         button.setContentCompressionResistancePriority(.required, for: .horizontal)
+        #if compiler(>=6.2)
         if #available(macOS 26.0, *) {
             button.bezelStyle = .glass
             button.borderShape = .capsule
@@ -506,6 +507,9 @@ final class PreviewViewController: NSViewController, QLPreviewingController, WKN
         } else {
             button.bezelStyle = .accessoryBarAction
         }
+        #else
+        button.bezelStyle = .accessoryBarAction
+        #endif
         button.isEnabled = false
         let copyTextHelp = NSLocalizedString(
             "Copy text to clipboard",
