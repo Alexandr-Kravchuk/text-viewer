@@ -71,6 +71,7 @@ private extension AppearanceMode {
 }
 
 @main
+@MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     private var settingsWindowController: SettingsWindowController?
