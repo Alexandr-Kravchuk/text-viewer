@@ -618,12 +618,14 @@ extension DocumentWindowController {
                                    fileURL: URL,
                                    actionName: String) {
         tableUndoManager.registerUndo(withTarget: self) { target in
-            target.restoreTableMarkdown(
-                markdown,
-                expectedCurrentMarkdown: expectedCurrentMarkdown,
-                fileURL: fileURL,
-                actionName: actionName
-            )
+            MainActor.assumeIsolated {
+                target.restoreTableMarkdown(
+                    markdown,
+                    expectedCurrentMarkdown: expectedCurrentMarkdown,
+                    fileURL: fileURL,
+                    actionName: actionName
+                )
+            }
         }
         tableUndoManager.setActionName(actionName)
     }

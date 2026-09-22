@@ -209,6 +209,7 @@ final class EditorViewController: NSViewController, WKNavigationDelegate {
     /// On macOS 26 and later, page scrolling lets WebKit supply the native
     /// backdrop across the toolbar and visible chrome rows.
     private func updateObscuredContentInsets() {
+        #if compiler(>=6.2)
         guard #available(macOS 26.0, *), view.window != nil else { return }
         let inset = fullChromeTopInset
         if webView.obscuredContentInsets.top != inset {
@@ -216,6 +217,7 @@ final class EditorViewController: NSViewController, WKNavigationDelegate {
                 top: inset, left: 0, bottom: 0, right: 0
             )
         }
+        #endif
     }
 
     /// See ContentViewController.updateUnderPageBackgroundColor — set on

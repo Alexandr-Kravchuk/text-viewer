@@ -509,6 +509,7 @@ final class ContentViewController: NSViewController {
     }
 
     private func updateObscuredContentInsets() {
+        #if compiler(>=6.2)
         guard #available(macOS 26.0, *) else {
             toolbarGutterHeightConstraint?.constant = 0
             pinWebViewBelowChrome()
@@ -529,6 +530,10 @@ final class ContentViewController: NSViewController {
                 top: inset, left: 0, bottom: 0, right: 0
             )
         }
+        #else
+        toolbarGutterHeightConstraint?.constant = 0
+        pinWebViewBelowChrome()
+        #endif
     }
 
     /// The scroll pocket WebKit draws for the obscured strip takes its color
