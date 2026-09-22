@@ -181,6 +181,7 @@ struct CustomizeThemeView: View {
     private func styledCircleButton(_ symbol: String,
                                     prominent: Bool,
                                     action: @escaping () -> Void) -> some View {
+        #if compiler(>=6.2)
         if #available(macOS 26.0, *) {
             Group {
                 if prominent {
@@ -193,22 +194,31 @@ struct CustomizeThemeView: View {
             }
             .buttonBorderShape(.circle)
         } else {
-            Button(action: action) {
-                glyph(symbol)
-                    // The filled circle inverts with the appearance, so the
-                    // glyph has to take the page color rather than white.
-                    .foregroundStyle(prominent
-                                     ? Color(nsColor: .textBackgroundColor)
-                                     : Color.primary)
-                    .background(
-                        Circle().fill(prominent
-                                      ? AnyShapeStyle(Color.primary.opacity(0.85))
-                                      : AnyShapeStyle(Color.primary.opacity(0.08)))
-                    )
-                    .contentShape(Circle())
-            }
-            .buttonStyle(.plain)
+            fallbackCircleButton(symbol, prominent: prominent, action: action)
         }
+        #else
+        fallbackCircleButton(symbol, prominent: prominent, action: action)
+        #endif
+    }
+
+    private func fallbackCircleButton(_ symbol: String,
+                                     prominent: Bool,
+                                     action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            glyph(symbol)
+                // The filled circle inverts with the appearance, so the
+                // glyph has to take the page color rather than white.
+                .foregroundStyle(prominent
+                                 ? Color(nsColor: .textBackgroundColor)
+                                 : Color.primary)
+                .background(
+                    Circle().fill(prominent
+                                  ? AnyShapeStyle(Color.primary.opacity(0.85))
+                                  : AnyShapeStyle(Color.primary.opacity(0.08)))
+                )
+                .contentShape(Circle())
+        }
+        .buttonStyle(.plain)
     }
 
     private func glyph(_ symbol: String) -> some View {

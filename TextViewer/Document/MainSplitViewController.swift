@@ -427,14 +427,22 @@ final class MainSplitViewController: NSSplitViewController {
     }
 
     func removeFormattingBar() {
+        #if compiler(>=6.2)
         if #available(macOS 26.1, *), Self.usesNativeChromeAccessories,
            let item = splitViewItems.dropFirst().first,
            let index = item.topAlignedAccessoryViewControllers.firstIndex(where: { $0 === formattingAccessory }) {
             item.removeTopAlignedAccessoryViewController(at: index)
             formattingAccessory = nil
-        } else {
-            layeredContentViewController?.removeFormattingBar()
+            cachedEditorViewController?.formattingBar = nil
+            if Self.usesNativeChromeAccessories {
+                contentViewController?.formattingBar = nil
+                contentViewController?.chromeOverlaysDidChange()
+            }
+            return
         }
+        #endif
+        layeredContentViewController?.removeFormattingBar()
+        formattingAccessory = nil
         cachedEditorViewController?.formattingBar = nil
         if Self.usesNativeChromeAccessories {
             contentViewController?.formattingBar = nil
@@ -447,8 +455,10 @@ final class MainSplitViewController: NSSplitViewController {
     private var findAccessory: NSViewController?
 
     static var usesNativeChromeAccessories: Bool {
+        #if compiler(>=6.2)
         if #available(macOS 27.0, *) { return false }
         if #available(macOS 26.1, *) { return true }
+        #endif
         return false
     }
 
@@ -462,6 +472,7 @@ final class MainSplitViewController: NSSplitViewController {
     }
 
     private func installNativeChromeAccessory(_ bar: NSView) -> NSViewController? {
+        #if compiler(>=6.2)
         guard #available(macOS 26.1, *),
               let item = splitViewItems.dropFirst().first else { return nil }
         let accessory = NSSplitViewItemAccessoryViewController()
@@ -472,6 +483,9 @@ final class MainSplitViewController: NSSplitViewController {
         accessory.isHidden = bar.isHidden
         item.addTopAlignedAccessoryViewController(accessory)
         return accessory
+        #else
+        return nil
+        #endif
     }
 
     /// Mounts the find bar the same way — see installFormattingBar. Stays
@@ -490,9 +504,11 @@ final class MainSplitViewController: NSSplitViewController {
     /// The find bar sits above the formatting bar, so toggling it moves
     /// the bar below and changes the editor's page padding.
     func findOverlayVisibilityChanged() {
+        #if compiler(>=6.2)
         if #available(macOS 26.1, *), Self.usesNativeChromeAccessories {
             (findAccessory as? NSSplitViewItemAccessoryViewController)?.isHidden = findOverlayView?.isHidden ?? true
         }
+        #endif
         layeredContentViewController?.updateChromeOverlayLayout()
         cachedEditorViewController?.chromeOverlaysDidChange()
         contentViewController?.chromeOverlaysDidChange()
