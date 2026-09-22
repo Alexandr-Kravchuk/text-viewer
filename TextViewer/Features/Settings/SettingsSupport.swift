@@ -11,6 +11,7 @@ func L(_ key: String) -> String {
     NSLocalizedString(key, comment: "")
 }
 
+@MainActor
 var appDelegate: AppDelegate? {
     NSApp.delegate as? AppDelegate
 }
