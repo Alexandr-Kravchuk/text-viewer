@@ -1,0 +1,7 @@
+#!/bin/sh
+# Managed by Text Viewer CLI
+if [ "$#" -eq 0 ]; then
+  exec open -a "Text Viewer" .
+else
+  exec open -a "Text Viewer" "$@"
+fi

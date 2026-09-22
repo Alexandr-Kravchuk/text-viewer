@@ -7,198 +7,584 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		100000000000000000000001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000001 /* AppDelegate.swift */; };
-		100000000000000000000002 /* TextDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000002 /* TextDocument.swift */; };
-		100000000000000000000003 /* TextDocumentWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000003 /* TextDocumentWindowController.swift */; };
-		100000000000000000000004 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000004 /* TextViewController.swift */; };
+		9A0209302FA10D4C00092060 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A02092F2FA10D4C00092060 /* Quartz.framework */; };
+		9A02093C2FA10D4C00092060 /* quick-look.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9A02092D2FA10D4C00092060 /* quick-look.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9A2040010000000000000001 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9A2040010000000000000004 /* Localizable.strings */; };
+		9A33940A2FA5AF500015D9A4 /* Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = 9A3394092FA5AF500015D9A4 /* Markdown */; };
+		9A33940C2FA5AF500015D9A4 /* Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = 9A33940B2FA5AF500015D9A4 /* Markdown */; };
+		9AC100010000000000000001 /* bin/text-viewer in Copy CLI Tool */ = {isa = PBXBuildFile; fileRef = 9AC100010000000000000002 /* bin/text-viewer */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		9A02093A2FA10D4C00092060 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A0207B92FA0ED7C00092060 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A02092C2FA10D4C00092060;
+			remoteInfo = "quick-look";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9A02093D2FA10D4C00092060 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				9A02093C2FA10D4C00092060 /* quick-look.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9AC100010000000000000003 /* Copy CLI Tool */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = bin;
+			dstSubfolderSpec = 7;
+			files = (
+				9AC100010000000000000001 /* bin/text-viewer in Copy CLI Tool */,
+			);
+			name = "Copy CLI Tool";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		200000000000000000000001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		200000000000000000000002 /* TextDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDocument.swift; sourceTree = "<group>"; };
-		200000000000000000000003 /* TextDocumentWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDocumentWindowController.swift; sourceTree = "<group>"; };
-		200000000000000000000004 /* TextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
-		200000000000000000000005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		200000000000000000000006 /* Text Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Text Viewer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A0207C12FA0ED7C00092060 /* Text Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Text Viewer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A02092D2FA10D4C00092060 /* quick-look.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "quick-look.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A02092F2FA10D4C00092060 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
+		9A0209A02FA1100100092060 /* Version.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Version.xcconfig; sourceTree = "<group>"; };
+		9A2040010000000000000002 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "TextViewer/en.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		9A2040010000000000000003 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "TextViewer/zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		9AC100010000000000000002 /* bin/text-viewer */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "bin/text-viewer"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		9A0209402FA10D4C00092060 /* Exceptions for "quick-look" folder in "quick-look" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 9A02092C2FA10D4C00092060 /* quick-look */;
+		};
+		9A0209432FA10E6600092060 /* Exceptions for "TextViewer" folder in "quick-look" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Helpers/ChromeStripClickThrough.swift,
+				Rendering/CodeFenceInfo.swift,
+				Rendering/CodeHighlighter.swift,
+				Rendering/DocumentFontSetting.swift,
+				Rendering/EscapingHTMLFormatter.swift,
+				Rendering/MarkdownAssetResolution.swift,
+				Rendering/MarkdownAssetSchemeHandler.swift,
+				Rendering/MarkdownFrontmatter.swift,
+				Rendering/MarkdownHTML.swift,
+				"Rendering/MarkdownHTML+Footnotes.swift",
+				"Rendering/MarkdownHTML+Highlight.swift",
+				"Rendering/MarkdownHTML+HostBridge.swift",
+				"Rendering/MarkdownHTML+KaTeX.swift",
+				"Rendering/MarkdownHTML+Math.swift",
+				"Rendering/MarkdownHTML+Mermaid.swift",
+				"Rendering/MarkdownHTML+RTL.swift",
+				"Rendering/MarkdownHTML+Stylesheet.swift",
+				"Rendering/MarkdownHTML+Utils.swift",
+				Rendering/MarkdownWebView.swift,
+				Rendering/QuickLookAppearance.swift,
+				Rendering/ReaderLayoutSetting.swift,
+				Rendering/URLSchemeTaskCallbackGate.swift,
+			);
+			target = 9A02092C2FA10D4C00092060 /* quick-look */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		9A0207C32FA0ED7C00092060 /* TextViewer */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9A0209432FA10E6600092060 /* Exceptions for "TextViewer" folder in "quick-look" target */,
+			);
+			path = "TextViewer";
+			sourceTree = "<group>";
+		};
+		9A0209312FA10D4C00092060 /* quick-look */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9A0209402FA10D4C00092060 /* Exceptions for "quick-look" folder in "quick-look" target */,
+			);
+			path = "quick-look";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
-		300000000000000000000001 /* Frameworks */ = {
+		9A0207BE2FA0ED7C00092060 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A33940A2FA5AF500015D9A4 /* Markdown in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A02092A2FA10D4C00092060 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A0209302FA10D4C00092060 /* Quartz.framework in Frameworks */,
+				9A33940C2FA5AF500015D9A4 /* Markdown in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		400000000000000000000001 = {
+		9A0207B82FA0ED7C00092060 = {
 			isa = PBXGroup;
 			children = (
-				400000000000000000000002 /* TextViewer */,
-				400000000000000000000003 /* Products */,
+				9A0209A02FA1100100092060 /* Version.xcconfig */,
+				9A2040010000000000000004 /* Localizable.strings */,
+				9AC100010000000000000004 /* Resources */,
+				9A0207C32FA0ED7C00092060 /* TextViewer */,
+				9A0209312FA10D4C00092060 /* quick-look */,
+				9A02092E2FA10D4C00092060 /* Frameworks */,
+				9A0207C22FA0ED7C00092060 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		400000000000000000000002 /* TextViewer */ = {
+		9A0207C22FA0ED7C00092060 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				200000000000000000000001 /* AppDelegate.swift */,
-				200000000000000000000002 /* TextDocument.swift */,
-				200000000000000000000003 /* TextDocumentWindowController.swift */,
-				200000000000000000000004 /* TextViewController.swift */,
-				200000000000000000000005 /* Info.plist */,
-			);
-			path = TextViewer;
-			sourceTree = "<group>";
-		};
-		400000000000000000000003 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				200000000000000000000006 /* Text Viewer.app */,
+				9A0207C12FA0ED7C00092060 /* Text Viewer.app */,
+				9A02092D2FA10D4C00092060 /* quick-look.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		9A02092E2FA10D4C00092060 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9A02092F2FA10D4C00092060 /* Quartz.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9AC100010000000000000004 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9AC100010000000000000002 /* bin/text-viewer */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		500000000000000000000001 /* TextViewer */ = {
+		9A0207C02FA0ED7C00092060 /* TextViewer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 600000000000000000000002 /* Build configuration list for PBXNativeTarget "TextViewer" */;
+			buildConfigurationList = 9A0207D02FA0ED7D00092060 /* Build configuration list for PBXNativeTarget "TextViewer" */;
 			buildPhases = (
-				300000000000000000000002 /* Sources */,
-				300000000000000000000001 /* Frameworks */,
-				300000000000000000000003 /* Resources */,
+				9A0207BD2FA0ED7C00092060 /* Sources */,
+				9A0207BE2FA0ED7C00092060 /* Frameworks */,
+				9A0207BF2FA0ED7C00092060 /* Resources */,
+				9AC100010000000000000003 /* Copy CLI Tool */,
+				9A02093D2FA10D4C00092060 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9A02093B2FA10D4C00092060 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				9A0207C32FA0ED7C00092060 /* TextViewer */,
+			);
+			name = "TextViewer";
+			packageProductDependencies = (
+				9A3394092FA5AF500015D9A4 /* Markdown */,
+			);
+			productName = "TextViewer";
+			productReference = 9A0207C12FA0ED7C00092060 /* Text Viewer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9A02092C2FA10D4C00092060 /* quick-look */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9A0209412FA10D4C00092060 /* Build configuration list for PBXNativeTarget "quick-look" */;
+			buildPhases = (
+				9A0209292FA10D4C00092060 /* Sources */,
+				9A02092A2FA10D4C00092060 /* Frameworks */,
+				9A02092B2FA10D4C00092060 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = TextViewer;
-			productName = TextViewer;
-			productReference = 200000000000000000000006 /* Text Viewer.app */;
-			productType = "com.apple.product-type.application";
+			fileSystemSynchronizedGroups = (
+				9A0209312FA10D4C00092060 /* quick-look */,
+			);
+			name = "quick-look";
+			packageProductDependencies = (
+				9A33940B2FA5AF500015D9A4 /* Markdown */,
+			);
+			productName = "quick-look";
+			productReference = 9A02092D2FA10D4C00092060 /* quick-look.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		700000000000000000000001 /* Project object */ = {
+		9A0207B92FA0ED7C00092060 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastUpgradeCheck = 2700;
+				LastSwiftUpdateCheck = 2640;
+				LastUpgradeCheck = 2660;
 				TargetAttributes = {
-					500000000000000000000001 = {
-						CreatedOnToolsVersion = 27.0;
+					9A0207C02FA0ED7C00092060 = {
+						CreatedOnToolsVersion = 26.4.1;
+					};
+					9A02092C2FA10D4C00092060 = {
+						CreatedOnToolsVersion = 26.4.1;
 					};
 				};
 			};
-			buildConfigurationList = 600000000000000000000001 /* Build configuration list for PBXProject "TextViewer" */;
-			compatibilityVersion = "Xcode 16.0";
+			buildConfigurationList = 9A0207BC2FA0ED7C00092060 /* Build configuration list for PBXProject "TextViewer" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
-			mainGroup = 400000000000000000000001;
-			productRefGroup = 400000000000000000000003 /* Products */;
+			mainGroup = 9A0207B82FA0ED7C00092060;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				9A3394082FA5AF500015D9A4 /* XCRemoteSwiftPackageReference "swift-markdown" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 9A0207C22FA0ED7C00092060 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				500000000000000000000001 /* TextViewer */,
+				9A0207C02FA0ED7C00092060 /* TextViewer */,
+				9A02092C2FA10D4C00092060 /* quick-look */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		300000000000000000000003 /* Resources */ = {
+		9A0207BF2FA0ED7C00092060 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9A02092B2FA10D4C00092060 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A2040010000000000000001 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		300000000000000000000002 /* Sources */ = {
+		9A0207BD2FA0ED7C00092060 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				100000000000000000000001 /* AppDelegate.swift in Sources */,
-				100000000000000000000002 /* TextDocument.swift in Sources */,
-				100000000000000000000003 /* TextDocumentWindowController.swift in Sources */,
-				100000000000000000000004 /* TextViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A0209292FA10D4C00092060 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		9A02093B2FA10D4C00092060 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9A02092C2FA10D4C00092060 /* quick-look */;
+			targetProxy = 9A02093A2FA10D4C00092060 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9A2040010000000000000004 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9A2040010000000000000002 /* en */,
+				9A2040010000000000000003 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
-		600000000000000000000003 /* Debug */ = {
+		9A0207CE2FA0ED7D00092060 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A0209A02FA1100100092060 /* Version.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGNING_ALLOWED = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				GENERATE_INFOPLIST_FILE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = TextViewer/Info.plist;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 0.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.textviewer.app;
-				PRODUCT_NAME = "Text Viewer";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9A0207CF2FA0ED7D00092060 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A0209A02FA1100100092060 /* Version.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		9A0207D12FA0ED7D00092060 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "TextViewer/TextViewer.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readwrite;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Text Viewer uses Terminal to install the optional command line tools.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainNibFile = MainMenu;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.textviewer.app.dev";
+				PRODUCT_NAME = "Text Viewer";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				REGISTER_APP_GROUPS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
-		600000000000000000000004 /* Release */ = {
+		9A0207D22FA0ED7D00092060 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGNING_ALLOWED = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf-with-dsym;
-				GENERATE_INFOPLIST_FILE = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = TextViewer/Info.plist;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "TextViewer/TextViewer.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readwrite;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSAppleEventsUsageDescription = "Text Viewer uses Terminal to install the optional command line tools.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainNibFile = MainMenu;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 0.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.textviewer.app;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.textviewer.app";
 				PRODUCT_NAME = "Text Viewer";
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				REGISTER_APP_GROUPS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};
-		600000000000000000000005 /* Project Debug */ = {
+		9A02093E2FA10D4C00092060 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_CXX_LIBRARY = "libc++";
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				CODE_SIGN_ENTITLEMENTS = "quick-look/quick-look.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "quick-look/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "quick-look";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.textviewer.app.dev.quicklook";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "QUICK_LOOK_EXTENSION $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
-		600000000000000000000006 /* Project Release */ = {
+		9A02093F2FA10D4C00092060 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_CXX_LIBRARY = "libc++";
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				CODE_SIGN_ENTITLEMENTS = "quick-look/quick-look.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "quick-look/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "quick-look";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.textviewer.app.quicklook";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "QUICK_LOOK_EXTENSION $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
@@ -206,25 +592,58 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		600000000000000000000001 /* Build configuration list for PBXProject "TextViewer" */ = {
+		9A0207BC2FA0ED7C00092060 /* Build configuration list for PBXProject "TextViewer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				600000000000000000000005 /* Project Debug */,
-				600000000000000000000006 /* Project Release */,
+				9A0207CE2FA0ED7D00092060 /* Debug */,
+				9A0207CF2FA0ED7D00092060 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		600000000000000000000002 /* Build configuration list for PBXNativeTarget "TextViewer" */ = {
+		9A0207D02FA0ED7D00092060 /* Build configuration list for PBXNativeTarget "TextViewer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				600000000000000000000003 /* Debug */,
-				600000000000000000000004 /* Release */,
+				9A0207D12FA0ED7D00092060 /* Debug */,
+				9A0207D22FA0ED7D00092060 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9A0209412FA10D4C00092060 /* Build configuration list for PBXNativeTarget "quick-look" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A02093E2FA10D4C00092060 /* Debug */,
+				9A02093F2FA10D4C00092060 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9A3394082FA5AF500015D9A4 /* XCRemoteSwiftPackageReference "swift-markdown" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/swiftlang/swift-markdown.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.7.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9A3394092FA5AF500015D9A4 /* Markdown */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9A3394082FA5AF500015D9A4 /* XCRemoteSwiftPackageReference "swift-markdown" */;
+			productName = Markdown;
+		};
+		9A33940B2FA5AF500015D9A4 /* Markdown */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9A3394082FA5AF500015D9A4 /* XCRemoteSwiftPackageReference "swift-markdown" */;
+			productName = Markdown;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
-	rootObject = 700000000000000000000001 /* Project object */;
+	rootObject = 9A0207B92FA0ED7C00092060 /* Project object */;
 }

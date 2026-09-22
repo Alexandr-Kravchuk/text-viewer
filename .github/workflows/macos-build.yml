@@ -1,0 +1,25 @@
+name: Text Viewer macOS Build
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Build app and Quick Look extension
+        run: >-
+          xcodebuild
+          -project TextViewer.xcodeproj
+          -scheme TextViewer
+          -destination 'generic/platform=macOS'
+          -derivedDataPath "$RUNNER_TEMP/DerivedData"
+          CODE_SIGNING_ALLOWED=NO
+          build
