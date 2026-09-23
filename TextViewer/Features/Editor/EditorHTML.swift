@@ -11,6 +11,7 @@ nonisolated enum EditorHTML {
         var darkPageBackground = "Canvas"
         var themeOverrideCSS = ""
         var usesPageScrolling = false
+        var beautifierJavaScript = ""
         var bridgeName = "mdEditorHost"
     }
 
@@ -23,11 +24,14 @@ nonisolated enum EditorHTML {
         let lightPageBackground = configuration.lightPageBackground
         let darkPageBackground = configuration.darkPageBackground
         let usesPageScrolling = configuration.usesPageScrolling
+        let wordWrap = WordWrapSetting.isEnabled ? "true" : "false"
+        let beautifierJavaScript = configuration.beautifierJavaScript
+            .replacingOccurrences(of: "</", with: "<\\/")
         let includesMermaid = mermaidJavaScript != nil
         let mermaidJavaScript = mermaidJavaScript ?? ""
         return """
         <!DOCTYPE html>
-        <html data-page-scrolling="\(usesPageScrolling)">
+        <html data-page-scrolling="\(usesPageScrolling)" data-word-wrap="\(wordWrap)">
         <head>
         <meta charset="UTF-8">
         \(assetBaseURL.map { "<base href=\"\(htmlAttributeLiteral(MarkdownAssetResolution.baseHref(forFolder: $0)))\">" } ?? "")
@@ -126,6 +130,11 @@ nonisolated enum EditorHTML {
         /* Hanging trailing spaces must not push the last word onto a new
            line. Match read-mode wrapping while preserving editable spaces. */
         #editor .cm-content.cm-lineWrapping { white-space: pre-wrap; }
+        html[data-word-wrap="false"] #editor .cm-content.cm-lineWrapping {
+            white-space: pre !important;
+            word-break: normal !important;
+            overflow-wrap: normal !important;
+        }
         #editor .cm-line[dir="rtl"] { text-align: right; }
         #editor .cm-line[dir="ltr"] { text-align: left; }
 
@@ -620,6 +629,7 @@ nonisolated enum EditorHTML {
         </script>
         """ : "")
         <script>\(editorJavaScript)</script>
+        \(beautifierJavaScript.isEmpty ? "" : "<script>\(beautifierJavaScript)</script>")
         <script>
         (function () {
             const post = function (m) {
@@ -682,6 +692,41 @@ nonisolated enum EditorHTML {
                     focus: function () { editor.focus(); },
                     setScrollPosition: function (progress, sourcePosition, sourceGap) {
                         return editor.setScrollPosition(progress, sourcePosition, sourceGap);
+                    },
+                    beautify: function (kind) {
+                        try {
+                            const original = editor.getMarkdown();
+                            const cr = String.fromCharCode(13);
+                            const lf = String.fromCharCode(10);
+                            const crlf = cr + lf;
+                            const eol = original.includes(crlf) ? crlf : (original.includes(cr) ? cr : lf);
+                            const hasFinalNewline = original.endsWith(eol);
+                            const bom = String.fromCharCode(65279);
+                            const prefix = original.startsWith(bom) ? bom : "";
+                            const source = prefix ? original.slice(1) : original;
+                            let formatted;
+                            if (kind === "json") JSON.parse(source);
+                            if ((kind === "json" || kind === "javascript")
+                                && typeof window.js_beautify === "function") {
+                                formatted = window.js_beautify(source, {
+                                    indent_size: 2,
+                                    indent_char: " ",
+                                    preserve_newlines: false,
+                                    max_preserve_newlines: 2,
+                                    eol: eol,
+                                    end_with_newline: hasFinalNewline
+                                });
+                            } else {
+                                throw new Error("The formatter is unavailable for this file type.");
+                            }
+                            formatted = prefix + formatted;
+                            if (formatted !== original) {
+                                editor.insertTextAt(formatted, 0, original.length);
+                            }
+                            return { success: true, changed: formatted !== original };
+                        } catch (error) {
+                            return { success: false, message: String(error && error.message || error) };
+                        }
                     },
                     insertTextAt: function (text, from, to) {
                         return editor.insertTextAt(text, from, to);

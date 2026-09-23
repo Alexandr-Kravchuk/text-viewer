@@ -105,6 +105,14 @@
 
 /* Format menu */
 "Format" = "Format";
+"Wrap Text" = "Wrap Text";
+"Wrap long lines" = "Wrap long lines";
+"Beautify Document" = "Beautify Document";
+"Format JSON or JavaScript" = "Format JSON or JavaScript";
+"Some files could not be restored" = "Some files could not be restored";
+"Couldn’t Beautify Document" = "Couldn’t Beautify Document";
+"Formatting failed: %@" = "Formatting failed: %@";
+"The document could not be formatted." = "The document could not be formatted.";
 "Body" = "Body";
 "Heading 1" = "Heading 1";
 "Heading 2" = "Heading 2";

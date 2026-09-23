@@ -166,6 +166,11 @@ extension DocumentWindowController {
             .applyReaderLayout()
     }
 
+    func applyWordWrapSetting() {
+        (documentWindow.contentViewController as? MainSplitViewController)?
+            .applyWordWrapSetting()
+    }
+
     func reloadPreviewForSettingChange() {
         (documentWindow.contentViewController as? MainSplitViewController)?
             .reloadPreviewForSettingChange()

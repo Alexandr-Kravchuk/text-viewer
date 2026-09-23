@@ -105,6 +105,14 @@
 
 /* Format menu */
 "Format" = "格式";
+"Wrap Text" = "自动换行";
+"Wrap long lines" = "自动换行显示长行";
+"Beautify Document" = "美化文档";
+"Format JSON or JavaScript" = "格式化 JSON 或 JavaScript";
+"Some files could not be restored" = "部分文件无法恢复";
+"Couldn’t Beautify Document" = "无法美化文档";
+"Formatting failed: %@" = "格式化失败：%@";
+"The document could not be formatted." = "无法格式化此文档。";
 "Body" = "正文";
 "Heading 1" = "标题 1";
 "Heading 2" = "标题 2";

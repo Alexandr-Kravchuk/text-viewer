@@ -87,6 +87,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private weak var darkAppearanceMenuItem: NSMenuItem?
     private weak var normalContentWidthMenuItem: NSMenuItem?
     private weak var fullContentWidthMenuItem: NSMenuItem?
+    private weak var wrapTextMenuItem: NSMenuItem?
     private var isDocumentPromptScheduled = false
     private var documentPromptScheduleGeneration = 0
     private var didReceiveOpenURLsDuringLaunch = false
@@ -103,6 +104,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         installContentWidthMenuItems()
         installSidebarViewMenuItems()
         installEditModeMenuItem()
+        installWrapTextMenuItem()
+        installBeautifyDocumentMenuItem()
         installNewTabMenuItem()
         installFileExportMenuItems()
         installGoMenu()
@@ -111,7 +114,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         installAppMenuItems()
         installViewMenuItemIcons()
         hasFinishedLaunching = true
-        if !didReceiveOpenURLsDuringLaunch {
+        let restoredFileCount = OpenDocumentRestoration.restoreOpenFiles()
+        if restoredFileCount > 0 {
+            cancelScheduledDocumentPrompt()
+        }
+        if !didReceiveOpenURLsDuringLaunch && restoredFileCount == 0 {
             scheduleDocumentPrompt(requiresNoDocuments: true)
         }
     }
@@ -216,6 +223,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         if isTerminationSaveInProgress {
             return .terminateLater
         }
+
+        OpenDocumentRestoration.persistOpenFiles()
 
         let controllers = NSDocumentController.shared.documents
             .flatMap(\.windowControllers)
@@ -448,6 +457,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         syncSidebarViewMenuState()
         syncAppearanceMenuState()
         syncContentWidthMenuState()
+        syncWordWrapMenuState()
         switch menuItem.action {
         case #selector(toggleSidebarFromMenu(_:)),
              #selector(hideSidebarFromMenu(_:)),
@@ -463,6 +473,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             return activeDocumentWindowController?.canToggleEditMode ?? false
         case #selector(formatMarkdownFromMenu(_:)):
             return activeDocumentWindowController?.canFormatMarkdown ?? false
+        case #selector(beautifyDocumentFromMenu(_:)):
+            return activeDocumentWindowController?.canBeautifyDocument ?? false
         default:
             return true
         }
@@ -1105,6 +1117,54 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         activeDocumentWindowController?.toggleEditMode()
     }
 
+    private func installWrapTextMenuItem() {
+        guard let viewMenu = topLevelSubmenu(matching: Self.viewMenuTitles),
+              viewMenu.items.first(where: { $0.action == #selector(toggleWrapText(_:)) }) == nil else { return }
+        let item = NSMenuItem(title: L("Wrap Text"),
+                              action: #selector(toggleWrapText(_:)),
+                              keyEquivalent: "")
+        item.target = self
+        wrapTextMenuItem = item
+        let index = viewMenu.items.firstIndex(where: {
+            $0.action == #selector(MainSplitViewController.resetDocumentZoom(_:))
+        }) ?? viewMenu.numberOfItems
+        viewMenu.insertItem(item, at: index)
+        syncWordWrapMenuState()
+    }
+
+    private func syncWordWrapMenuState() {
+        wrapTextMenuItem?.state = WordWrapSetting.isEnabled ? .on : .off
+    }
+
+    @objc func toggleWrapText(_ sender: Any?) {
+        WordWrapSetting.store(!WordWrapSetting.isEnabled)
+        syncWordWrapMenuState()
+        documentWindowControllers.forEach {
+            $0.applyWordWrapSetting()
+            $0.updateWordWrapToolbarItem()
+        }
+    }
+
+    private func installBeautifyDocumentMenuItem() {
+        guard let editMenu = topLevelSubmenu(matching: Self.editMenuTitles),
+              editMenu.items.first(where: { $0.action == #selector(beautifyDocumentFromMenu(_:)) }) == nil else { return }
+        let item = NSMenuItem(title: L("Beautify Document"),
+                              action: #selector(beautifyDocumentFromMenu(_:)),
+                              keyEquivalent: "")
+        item.target = self
+        var index = editMenu.items.firstIndex(where: { $0.title == L("Transformations") })
+            ?? editMenu.numberOfItems
+        if index > 0 && !editMenu.items[index - 1].isSeparatorItem {
+            editMenu.insertItem(.separator(), at: index)
+            index += 1
+        }
+        editMenu.insertItem(item, at: index)
+    }
+
+    @objc private func beautifyDocumentFromMenu(_ sender: Any?) {
+        activeDocumentWindowController?.beautifyDocument()
+    }
+
     private func installFormatMenu() {
         guard let mainMenu = NSApp.mainMenu,
               topLevelMenuItem(matching: Self.formatMenuTitles) == nil else { return }
@@ -1198,6 +1258,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     private static let fileMenuTitles: Set<String> = ["File", "文件"]
     private static let viewMenuTitles: Set<String> = ["View", "显示"]
+    private static let editMenuTitles: Set<String> = ["Edit", "编辑"]
     private static let windowMenuTitles: Set<String> = ["Window", "窗口"]
     private static let formatMenuTitles: Set<String> = ["Format", "格式"]
     private static let goMenuTitles: Set<String> = ["Go", "前往"]

@@ -181,6 +181,7 @@ extension DocumentWindowController {
         updateWindowSubtitle()
         refreshOpenInLLMItem()
         updateEditToolbarItem()
+        OpenDocumentRestoration.persistOpenFiles()
         markdownDocument?.replaceContents(markdown: text, fileURL: fileURL)
         renderCurrentDocument(text: text, fileURL: fileURL)
         if pendingEditModeURL == fileURL.standardizedFileURL {

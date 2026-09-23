@@ -63,6 +63,8 @@ final class DocumentWindowController: NSWindowController, NSWindowDelegate, NSTo
     weak var openWithItem: NSMenuToolbarItem?
     weak var openInLLMItem: NSMenuToolbarItem?
     weak var inspectorButton: NSButton?
+    weak var wrapTextButton: NSButton?
+    weak var beautifyButton: NSButton?
     weak var alwaysOnTopButton: NSButton?
     weak var editButton: NSButton?
     var editorChangeRevision = 0
@@ -209,6 +211,7 @@ final class DocumentWindowController: NSWindowController, NSWindowDelegate, NSTo
         documentWindow.toolbar = toolbar
         documentWindow.toolbarStyle = .automatic
         replaceZoomToolbarItemIfNeeded(in: toolbar)
+        installTextToolsToolbarItemsIfNeeded(in: toolbar)
 
         installFindBar()
         applyWindowBackgroundTheme()
@@ -321,6 +324,11 @@ final class DocumentWindowController: NSWindowController, NSWindowDelegate, NSTo
         stopAutoSaveTimer()
         autoSaveFeedbackResetWork?.cancel()
         autoSaveFeedbackResetWork = nil
+        // AppKit removes a document from its live window set after this
+        // callback. Defer the snapshot so the just-closed file is excluded.
+        DispatchQueue.main.async { [weak self] in
+            OpenDocumentRestoration.persistOpenFiles(excluding: self)
+        }
     }
 
     func windowWillEnterFullScreen(_ notification: Notification) {
@@ -366,6 +374,7 @@ final class DocumentWindowController: NSWindowController, NSWindowDelegate, NSTo
         refreshOpenInLLMItem()
         refreshOpenActionsItem()
         updateEditToolbarItem()
+        OpenDocumentRestoration.persistOpenFiles()
         if let fileURL {
             NSDocumentController.shared.noteNewRecentDocumentURL(fileURL)
             renderCurrentDocument(text: markdown, fileURL: fileURL)
@@ -517,7 +526,9 @@ final class DocumentWindowController: NSWindowController, NSWindowDelegate, NSTo
         markdownDocument?.replaceFileURL(newURL)
         documentWindow.title = newURL.lastPathComponent
         updateWindowSubtitle()
+        updateEditToolbarItem()
         NSDocumentController.shared.noteNewRecentDocumentURL(newURL)
+        OpenDocumentRestoration.persistOpenFiles()
         refreshOpenWithItem()
         refreshOpenActionsItem()
         startWatching(newURL)

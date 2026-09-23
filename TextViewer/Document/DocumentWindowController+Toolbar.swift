@@ -13,6 +13,8 @@ extension NSToolbarItem.Identifier {
     static let openWith = NSToolbarItem.Identifier("OpenWith")
     static let openInLLM = NSToolbarItem.Identifier("OpenInLLM")
     static let inspector = NSToolbarItem.Identifier("Inspector")
+    static let wrapText = NSToolbarItem.Identifier("WrapText")
+    static let beautifyDocument = NSToolbarItem.Identifier("BeautifyDocument")
     static let share = NSToolbarItem.Identifier("Share")
     static let search = NSToolbarItem.Identifier("Search")
     /// The sidebar show/hide toggle. The raw value predates the mode picker
@@ -64,6 +66,8 @@ extension DocumentWindowController {
             .themesAndSettings,
             .space,
             .inspector,
+            .wrapText,
+            .beautifyDocument,
             .share,
             .editDocument,
             .search
@@ -86,6 +90,8 @@ extension DocumentWindowController {
             .openWith,
             .editDocument,
             .inspector,
+            .wrapText,
+            .beautifyDocument,
             .share,
             .search,
             .printDocument,
@@ -116,6 +122,8 @@ extension DocumentWindowController {
             return makeOpenInLLMItem()
         case .editDocument: return makeEditItem(willBeInsertedIntoToolbar: flag)
         case .inspector: return makeInspectorItem(willBeInsertedIntoToolbar: flag)
+        case .wrapText: return makeWrapTextItem(willBeInsertedIntoToolbar: flag)
+        case .beautifyDocument: return makeBeautifyDocumentItem(willBeInsertedIntoToolbar: flag)
         case .alwaysOnTop: return makeAlwaysOnTopItem(willBeInsertedIntoToolbar: flag)
         case .share: return makeShareItem()
         case .search: return makeSearchItem()
@@ -223,6 +231,64 @@ extension DocumentWindowController {
             button.state = isInspectorToggleSelected ? .on : .off
         }
         return item
+    }
+
+    private func makeWrapTextItem(willBeInsertedIntoToolbar: Bool) -> NSToolbarItem {
+        let label = NSLocalizedString("Wrap Text", comment: "Wrap text toolbar item label")
+        let image = NSImage(systemSymbolName: "text.alignleft",
+                            accessibilityDescription: label) ?? NSImage()
+        image.isTemplate = true
+        let item = NSToolbarItem(itemIdentifier: .wrapText)
+        let button = NSButton(image: image, target: NSApp.delegate,
+                              action: #selector(AppDelegate.toggleWrapText(_:)))
+        button.setButtonType(.pushOnPushOff)
+        button.isBordered = true
+        button.setAccessibilityLabel(label)
+        button.state = WordWrapSetting.isEnabled ? .on : .off
+        button.toolTip = NSLocalizedString("Wrap long lines", comment: "Wrap text toolbar item tooltip")
+        item.view = button
+        item.label = label
+        item.paletteLabel = label
+        item.toolTip = button.toolTip
+        item.autovalidates = false
+        if willBeInsertedIntoToolbar {
+            wrapTextButton = button
+        }
+        return item
+    }
+
+    private func makeBeautifyDocumentItem(willBeInsertedIntoToolbar: Bool) -> NSToolbarItem {
+        let label = NSLocalizedString("Beautify Document", comment: "Beautify toolbar item label")
+        let image = NSImage(systemSymbolName: "curlybraces",
+                            accessibilityDescription: label) ?? NSImage()
+        image.isTemplate = true
+        let (item, button) = makeToggleButtonItem(identifier: .beautifyDocument,
+                                                  image: image,
+                                                  label: label,
+                                                  action: #selector(beautifyToolbarAction(_:)))
+        button.setButtonType(.momentaryPushIn)
+        item.autovalidates = false
+        item.toolTip = NSLocalizedString("Format JSON or JavaScript",
+                                         comment: "Beautify document toolbar item tooltip")
+        button.toolTip = item.toolTip
+        button.setAccessibilityLabel(label)
+        button.isEnabled = canBeautifyDocument
+        if willBeInsertedIntoToolbar {
+            beautifyButton = button
+        }
+        return item
+    }
+
+    func updateWordWrapToolbarItem() {
+        wrapTextButton?.state = WordWrapSetting.isEnabled ? .on : .off
+    }
+
+    func updateBeautifyToolbarItem() {
+        beautifyButton?.isEnabled = canBeautifyDocument
+    }
+
+    @objc private func beautifyToolbarAction(_ sender: Any?) {
+        beautifyDocument()
     }
 
     private func makeAlwaysOnTopItem(willBeInsertedIntoToolbar: Bool) -> NSToolbarItem {
@@ -485,6 +551,25 @@ extension DocumentWindowController {
         else { return }
         toolbar.removeItem(at: zoomIndex)
         toolbar.insertItem(withItemIdentifier: .themesAndSettings, at: zoomIndex)
+    }
+
+    /// Add the text-specific controls to toolbar layouts saved by older app
+    /// versions without disturbing layouts the user has already customized.
+    func installTextToolsToolbarItemsIfNeeded(in toolbar: NSToolbar) {
+        let defaults = UserDefaults.standard
+        let migrationKey = "Toolbar.DidAddTextViewerTools"
+        guard !defaults.bool(forKey: migrationKey) else { return }
+        defaults.set(true, forKey: migrationKey)
+
+        var insertionIndex = toolbar.items.firstIndex { $0.itemIdentifier == .inspector }
+            .map { $0 + 1 }
+            ?? toolbar.items.firstIndex { $0.itemIdentifier == .share }
+            ?? toolbar.items.count
+        for identifier in [NSToolbarItem.Identifier.wrapText, .beautifyDocument]
+        where !toolbar.items.contains(where: { $0.itemIdentifier == identifier }) {
+            toolbar.insertItem(withItemIdentifier: identifier, at: insertionIndex)
+            insertionIndex += 1
+        }
     }
 
     private func inspectorImage() -> NSImage {

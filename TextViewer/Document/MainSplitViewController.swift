@@ -271,6 +271,11 @@ final class MainSplitViewController: NSSplitViewController {
         contentViewController?.applyReaderLayout()
     }
 
+    func applyWordWrapSetting() {
+        contentViewController?.applyWordWrapSetting()
+        cachedEditorViewController?.applyWordWrapSetting()
+    }
+
     func reloadPreviewForSettingChange() {
         contentViewController?.reloadPreviewForSettingChange()
     }

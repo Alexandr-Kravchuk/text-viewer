@@ -110,6 +110,7 @@ extension DocumentWindowController {
             self.updateEditToolbarItem()
             self.startWatching(url)
             NSDocumentController.shared.noteNewRecentDocumentURL(url)
+            OpenDocumentRestoration.persistOpenFiles()
             completion(.saved)
         }
     }

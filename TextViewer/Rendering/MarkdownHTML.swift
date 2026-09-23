@@ -337,6 +337,14 @@ nonisolated enum MarkdownHTML {
             overflow: visible;
             tab-size: 4;
         }
+        html[data-word-wrap="true"] article.markdown-body > pre.text-viewer-source {
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+        html[data-word-wrap="false"] article.markdown-body > pre.text-viewer-source {
+            white-space: pre;
+            overflow-wrap: normal;
+        }
         </style>
         """
         // Always emitted, possibly empty, and last of the style blocks: a
@@ -413,9 +421,10 @@ nonisolated enum MarkdownHTML {
         // element to rewrite instead of creating one per page variant.
         let themeStyleBlock =
             "<style id=\"\(themeStyleElementID)\">\(themeOverrides?.css ?? "")</style>"
+        let wordWrapAttribute = WordWrapSetting.isEnabled ? "true" : "false"
         let html = """
         <!DOCTYPE html>
-        <html\(colorSchemeAttribute)>
+        <html\(colorSchemeAttribute) data-word-wrap="\(wordWrapAttribute)">
         <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">

@@ -100,6 +100,7 @@ final class ContentViewController: NSViewController {
         webView.contentDidReplace = { [weak self] in
             // The fresh article is in the DOM; a same-height render never
             // fires heightDidChange, so this is the reliable signal.
+            self?.webView.applyWordWrapSetting()
             self?.applyPendingScrollAnchorIfNeeded()
             self?.updatePointerTracking()
         }
@@ -404,6 +405,10 @@ final class ContentViewController: NSViewController {
 
     func applyReaderLayout() {
         webView.applyReaderLayout()
+    }
+
+    func applyWordWrapSetting() {
+        webView.applyWordWrapSetting()
     }
 
     func applyThemeColors() {

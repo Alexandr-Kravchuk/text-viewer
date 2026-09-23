@@ -182,6 +182,23 @@ enum ContentWidthSetting: String, CaseIterable {
     }
 }
 
+/// App-wide visual wrapping preference. Missing defaults opt existing users
+/// into the requested default-on behavior.
+nonisolated enum WordWrapSetting {
+    static let defaultsKey = "MarkdownPreview.wrapText"
+
+    static var isEnabled: Bool {
+        guard let stored = UserDefaults.standard.object(forKey: defaultsKey) as? NSNumber else {
+            return true
+        }
+        return stored.boolValue
+    }
+
+    static func store(_ isEnabled: Bool) {
+        UserDefaults.standard.set(isEnabled, forKey: defaultsKey)
+    }
+}
+
 struct FindResult {
     let top: CGFloat?
     let bottom: CGFloat?
@@ -533,6 +550,11 @@ final class MarkdownWebView: NSView, WKNavigationDelegate {
         #else
         return ThemeColorsSetting.current.markdownThemeOverrides
         #endif
+    }
+
+    func applyWordWrapSetting() {
+        let value = WordWrapSetting.isEnabled ? "true" : "false"
+        webView.evaluateJavaScript("document.documentElement.dataset.wordWrap = '\(value)';") { _, _ in }
     }
 
     #if !QUICK_LOOK_EXTENSION

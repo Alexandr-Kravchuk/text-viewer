@@ -24,6 +24,7 @@ final class EditorViewController: NSViewController, WKNavigationDelegate {
     /// and discard.
     var cancelRequested: (() -> Void)?
     private(set) var hasChanges = false
+    private(set) var isReady = false
 
     private var webView: WKWebView!
     private let bridge = EditorBridge()
@@ -32,6 +33,7 @@ final class EditorViewController: NSViewController, WKNavigationDelegate {
     private var pageSupportsMermaid = false
     private var currentAssetBaseURL: URL?
     private var findCompletion: ((FindResult) -> Void)?
+    private var pendingBeautificationKind: DocumentBeautifierKind?
 
     override func loadView() {
         let config = WKWebViewConfiguration()
@@ -51,6 +53,8 @@ final class EditorViewController: NSViewController, WKNavigationDelegate {
 
     func load(markdown: String, assetBaseURL: URL? = nil) {
         hasChanges = false
+        isReady = false
+        pendingBeautificationKind = nil
         currentAssetBaseURL = assetBaseURL?.standardizedFileURL
         assetScheme.setBaseURL(currentAssetBaseURL)
         let needsMermaid = false
@@ -88,6 +92,47 @@ final class EditorViewController: NSViewController, WKNavigationDelegate {
     /// the 900px column and the body gutters track the preview exactly.
     func applyPageZoom(_ zoom: CGFloat) {
         webView.pageZoom = zoom
+    }
+
+    func applyWordWrapSetting() {
+        let value = WordWrapSetting.isEnabled ? "true" : "false"
+        webView.evaluateJavaScript("document.documentElement.dataset.wordWrap = '\(value)';") { _, _ in }
+    }
+
+    func beautify(_ kind: DocumentBeautifierKind) {
+        guard isReady else {
+            pendingBeautificationKind = kind
+            return
+        }
+        let script = "window.__mdEditor && window.__mdEditor.beautify(\(EditorHTML.jsStringLiteral(kind.rawValue)))"
+        webView.evaluateJavaScript(script) { [weak self] result, error in
+            guard let self else { return }
+            if let error {
+                self.showBeautificationError(error.localizedDescription)
+                return
+            }
+            guard let outcome = result as? [String: Any],
+                  (outcome["success"] as? Bool) == true else {
+                let message = (result as? [String: Any])?["message"] as? String
+                    ?? NSLocalizedString("The document could not be formatted.", comment: "Beautifier fallback error")
+                self.showBeautificationError(message)
+                return
+            }
+        }
+    }
+
+    private func showBeautificationError(_ details: String) {
+        let alert = NSAlert()
+        alert.messageText = NSLocalizedString("Couldn’t Beautify Document", comment: "Beautifier error title")
+        alert.informativeText = String(
+            format: NSLocalizedString("Formatting failed: %@", comment: "Beautifier error details"),
+            details
+        )
+        if let window = view.window {
+            alert.beginSheetModal(for: window)
+        } else {
+            NSSound.beep()
+        }
     }
 
     /// Rewrites the theme override `<style>` so a color edited in Settings
@@ -335,6 +380,12 @@ final class EditorViewController: NSViewController, WKNavigationDelegate {
                 contentDidChange?()
             case "ready":
                 hasLoadedEditorPage = true
+                isReady = true
+                applyWordWrapSetting()
+                if let pendingBeautificationKind {
+                    self.pendingBeautificationKind = nil
+                    beautify(pendingBeautificationKind)
+                }
                 // Fresh page — the bar padding lives in the DOM and must be
                 // re-applied even when the tracked value hasn't changed,
                 // and WebKit re-derives the under-page color from the new
@@ -399,6 +450,8 @@ final class EditorViewController: NSViewController, WKNavigationDelegate {
 
     private static let editorJavaScript =
         vendorResource("mdedit.min", ext: "js", subdir: "Vendor/CodeMirror") ?? ""
+    private static let beautifierJavaScript =
+        vendorResource("beautify.min", ext: "js", subdir: "Vendor/JSBeautify") ?? ""
     private static func editorHTML(markdown: String,
                                    includesMermaid: Bool,
                                    assetBaseURL: URL?) -> String {
@@ -432,6 +485,7 @@ final class EditorViewController: NSViewController, WKNavigationDelegate {
                 darkPageBackground: darkPageBackground,
                 themeOverrideCSS: colors.editorOverrideCSS,
                 usesPageScrolling: usesPageScrolling,
+                beautifierJavaScript: beautifierJavaScript,
                 bridgeName: EditorBridge.name
             )
         )

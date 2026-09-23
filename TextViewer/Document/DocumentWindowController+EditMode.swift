@@ -7,6 +7,20 @@
 
 import Cocoa
 
+enum DocumentBeautifierKind: String {
+    case json
+    case javascript
+
+    static func forFileURL(_ url: URL?) -> DocumentBeautifierKind? {
+        guard let ext = url?.pathExtension.lowercased() else { return nil }
+        switch ext {
+        case "json": return .json
+        case "js", "mjs", "cjs": return .javascript
+        default: return nil
+        }
+    }
+}
+
 extension DocumentWindowController {
     // MARK: - Edit mode
 
@@ -23,6 +37,21 @@ extension DocumentWindowController {
     }
 
     var canFormatMarkdown: Bool { isEditing }
+
+    var canBeautifyDocument: Bool {
+        currentFileURL != nil
+            && currentMarkdown != nil
+            && DocumentBeautifierKind.forFileURL(currentFileURL) != nil
+    }
+
+    func beautifyDocument() {
+        guard canBeautifyDocument,
+              let kind = DocumentBeautifierKind.forFileURL(currentFileURL) else { return }
+        if !isEditing {
+            enterEditMode()
+        }
+        mainSplit?.editorViewController?.beautify(kind)
+    }
 
     func formatMarkdown(_ command: String) {
         guard isEditing else { return }
@@ -61,6 +90,7 @@ extension DocumentWindowController {
     }
 
     func updateEditToolbarItem() {
+        updateBeautifyToolbarItem()
         guard let editButton else { return }
         applyEditToolbarState(to: editButton)
     }
